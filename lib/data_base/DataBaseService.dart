@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite_flutter/data_base/User.dart';
+import 'package:sqflite_flutter/models/user.dart';
 
 class DatabaseService {
   static Database? _db;
