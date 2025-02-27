@@ -39,9 +39,14 @@ class _AddUpdateNoteState extends State<AddUpdateNote> {
           IconButton(
               icon: Icon(Icons.check_circle_rounded),
               onPressed: () {
-                //Navigator.pop(context, "this is the data for back screen");
-                print(titleController.text);
-                print(subTitleController.text);
+                String title = titleController.text;
+                String subTitle = subTitleController.text;
+                if(title.isEmpty || subTitle.isEmpty) {
+                  print('please enter required fields');
+                } else {
+                  Note note = Note(1, DateTime.now().millisecondsSinceEpoch, titleController.text, subTitleController.text);
+                  Navigator.pop(context, note);
+                }
               },
           )
         ],

@@ -31,11 +31,15 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ElevatedButton(
                 child: Text("AddNote"),
                 onPressed: () async {
+
                   final response = await Navigator.push(
                       context, MaterialPageRoute(builder: (context) => AddUpdateNote(),)
                   );
+
                   if(response != null) {
-                    print("back response: $response");
+                    response as Note;
+                    notes.add(response);
+                    setState(() {});
                   }
                 },
             ),
@@ -50,13 +54,23 @@ class _HomeScreenState extends State<HomeScreen> {
               subtitle: Text(notes[index].description),
               leading: IconButton(
                   icon: Icon(Icons.edit),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddUpdateNote(note: notes[index],),));
+                  onPressed: () async {
+                    final response = await Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => AddUpdateNote(note: notes[index],),)
+                    );
+
+                    if(response != null) {
+                      response as Note;
+                      notes[index] = response;
+                      setState(() {});
+                    }
                   },
               ),
               trailing: IconButton(
                   icon: Icon(Icons.delete),
                   onPressed: () {
+                    notes.removeAt(index);
+                    setState(() {});
                   },
               ),
             );
